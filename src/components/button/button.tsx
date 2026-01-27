@@ -1,5 +1,10 @@
 import type React from "react";
 
-export const Button = ({ children }: { children: React.ReactNode }) => {
-  return <button>{children}</button>;
+type Props = {
+  children: React.ReactNode;
+  onClick?: () => void;
+};
+
+export const Button = ({ children, onClick }: Props) => {
+  return <button onClick={onClick}>{children}</button>;
 };
