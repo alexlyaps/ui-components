@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   test-run:
@@ -24,7 +27,10 @@ jobs:
         run: npm run lint
 
       - name: typecheck
-        run: tsc --noEmit --p tsconfig.app.json
+        run: npm run typecheck
 
       - name: npm run test
         run: npm run test
+
+      - name: npm run build
+        run: npm run build
