@@ -22,6 +22,8 @@ jobs:
 
       - name: npm install
         run: npm ci
+        with:
+          cache: "npm"
 
       - name: npm run lint
         run: npm run lint
