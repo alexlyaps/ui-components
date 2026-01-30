@@ -1,10 +1,9 @@
-import type React from 'react'
+import type { ButtonProps as Props } from './button.types'
 
-type Props = {
-  children: React.ReactNode
-  onClick?: () => void
-}
-
-export const Button = ({ children, onClick }: Props) => {
-  return <button onClick={onClick}>{children}</button>
+export const Button = ({ children, onClick, disabled }: Props) => {
+  return (
+    <button onClick={onClick} disabled={disabled}>
+      {children}
+    </button>
+  )
 }
