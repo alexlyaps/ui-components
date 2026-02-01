@@ -12,7 +12,7 @@ import tseslint, { parser } from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist', 'node_modules', '.storybook']),
+  globalIgnores(['dist', 'node_modules']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -52,6 +52,15 @@ export default defineConfig([
         project: './tsconfig.node.json',
       },
     },
+  },
+  {
+    files: ['.storybook/**/*.{ts,tsx}'],
+    languageOptions: {
+      parserOptions: {
+        project: './.storybook/tsconfig.json',
+      },
+    },
+    extends: [...storybook.configs['flat/recommended']],
   },
   ...storybook.configs['flat/recommended'],
 ])
