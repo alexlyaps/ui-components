@@ -4,7 +4,7 @@ import { Input } from './input'
 
 describe('Input component', () => {
   it('renders with placeholder', () => {
-    render(<Input />)
+    render(<Input onChange={() => {}} />)
     const inputElement = screen.getByPlaceholderText('Enter text here')
     expect(inputElement).toBeInTheDocument()
   })
