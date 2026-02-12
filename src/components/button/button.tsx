@@ -2,7 +2,7 @@ import type { ButtonProps as Props } from './button.types'
 import { cva } from 'class-variance-authority'
 import { cn } from '@/utils/cn'
 
-const buttonVariants = cva('px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-offset-2', {
+const buttonVariants = cva('px-4 py-2  focus:outline-none focus:ring-2 focus:ring-offset-2', {
   variants: {
     variant: {
       primary: 'bg-blue-600 text-white hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed',

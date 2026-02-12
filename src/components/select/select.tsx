@@ -4,25 +4,22 @@ import { cva } from 'class-variance-authority'
 import { cn } from '@/utils/cn'
 import { ChevronDown } from 'lucide-react'
 
-const selectVariants = cva(
-  'w-full border rounded px-3 py-2 flex justify-between items-center focus-within:border-black ',
-  {
-    variants: {
-      error: {
-        true: 'border-red-500 focus:ring-red-500',
-        false: 'border-gray-300 focus:ring-blue-500',
-      },
-      disabled: {
-        true: 'bg-gray-100 cursor-not-allowed pointer-events-none opacity-50',
-        false: 'bg-white',
-      },
+const selectVariants = cva('w-full border  px-3 py-2 flex justify-between items-center focus-within:border-black ', {
+  variants: {
+    error: {
+      true: 'border-red-500 focus:ring-red-500',
+      false: 'border-gray-300 focus:ring-blue-500',
     },
-    defaultVariants: {
-      error: false,
-      disabled: false,
+    disabled: {
+      true: 'bg-gray-100 cursor-not-allowed pointer-events-none opacity-50',
+      false: 'bg-white',
     },
-  }
-)
+  },
+  defaultVariants: {
+    error: false,
+    disabled: false,
+  },
+})
 
 export const Select = ({
   placeholder,
@@ -108,7 +105,7 @@ export const Select = ({
       {isOpen && (
         <div
           ref={listRef}
-          className={cn('border rounded px-3 py-2 bg-white shadow-md absolute z-10 w-full max-h-60 overflow-auto')}
+          className={cn('border  px-3 py-2 bg-white shadow-md absolute z-10 w-full max-h-60 overflow-auto')}
           role="listbox"
           tabIndex={-1}
         >

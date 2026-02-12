@@ -3,7 +3,7 @@ import { cva } from 'class-variance-authority'
 import { cn } from '@/utils/cn'
 
 const inputVariants = cva(
-  'border rounded px-3 py-2 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2',
+  'border  px-3 py-2 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2',
   {
     variants: {
       error: {
