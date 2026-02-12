@@ -5,9 +5,10 @@ import { cn } from '@/utils/cn'
 const buttonVariants = cva('px-4 py-2  focus:outline-none focus:ring-2 focus:ring-offset-2', {
   variants: {
     variant: {
-      primary: 'bg-blue-600 text-white hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed',
-      secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300 disabled:bg-gray-100 disabled:cursor-not-allowed',
-      danger: 'bg-red-600 text-white hover:bg-red-700 disabled:bg-red-400 disabled:cursor-not-allowed',
+      primary: 'bg-primary text-white hover:bg-primary-dark disabled:bg-primary-light disabled:cursor-not-allowed',
+      secondary:
+        'bg-secondary text-gray-900 hover:bg-secondary-dark disabled:bg-secondary-light disabled:cursor-not-allowed',
+      danger: 'bg-danger text-white hover:bg-danger-dark disabled:bg-danger-light disabled:cursor-not-allowed',
     },
     size: {
       small: 'text-sm',
