@@ -11,7 +11,6 @@ Designed for rapid prototyping and as a flexible foundation that can be adapted 
 - React
 - TypeScript
 - Tailwind CSS
-- shadcn/ui
 - Storybook
 - Vitest + Testing Library
 - Vite
