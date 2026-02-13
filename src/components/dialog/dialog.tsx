@@ -58,14 +58,14 @@ export const Dialog = ({ open, onOpenChange, className, children }: DialogProps)
   return (
     <div
       role="overlay"
-      className="fixed inset-0 flex items-center justify-center bg-black/50"
+      className="fixed inset-0 flex items-center justify-center bg-black/50 z-10"
       onClick={() => onOpenChange(false)}
     >
       <div
         role="dialog"
         aria-modal="true"
         ref={dialogRef}
-        className={cn('relative border bg-white p-4', className)}
+        className={cn('relative border bg-white max-w-1/2 max-h-1/2 p-4 z-20 overflow-y-auto', className)}
         onClick={(e) => e.stopPropagation()}
       >
         <Plus
