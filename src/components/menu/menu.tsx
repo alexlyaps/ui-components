@@ -1,4 +1,4 @@
-import { useContext, createContext, useRef, useState } from 'react'
+import { useContext, createContext, useRef, useState, useEffect } from 'react'
 import { cn } from '@/utils/cn'
 import { Button } from '../button'
 
@@ -24,28 +24,57 @@ export const Menu = ({ children }: { children: React.ReactNode }) => {
   const [open, setOpen] = useState(false)
   const triggerRef = useRef<HTMLButtonElement>(null)
 
+  useEffect(() => {
+    const onClickOutside = (e: MouseEvent) => {
+      if (triggerRef.current && !triggerRef.current.contains(e.target as Node)) {
+        setOpen(false)
+      }
+    }
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+
+    document.addEventListener('mousedown', onClickOutside)
+    document.addEventListener('keydown', onKeyDown)
+
+    return () => {
+      document.removeEventListener('mousedown', onClickOutside)
+      document.removeEventListener('keydown', onKeyDown)
+    }
+  }, [setOpen])
+
   return <MenuContext.Provider value={{ open, setOpen, triggerRef }}>{children}</MenuContext.Provider>
 }
 
-export const MenuTrigger = ({ children }: { children: React.ReactNode | string; asChild?: boolean }) => {
-  const { open, setOpen } = useMenuContext()
+export const MenuTrigger = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode | string
+  className?: string
+  asChild?: boolean
+}) => {
+  const { open, setOpen, triggerRef } = useMenuContext()
 
   const handleClick = () => {
     setOpen((open) => !open)
   }
 
-  if (typeof children === 'string') {
-    return <Button onClick={handleClick}>{children}</Button>
-  }
-
   return (
-    <Button label={'blank'} aria-expanded={open} aria-haspopup="menu" onClick={handleClick}>
+    <Button
+      aria-expanded={open}
+      aria-haspopup="menu"
+      onClick={handleClick}
+      ref={triggerRef}
+      className={cn('inline-flex items-center', className)}
+    >
       {children}
     </Button>
   )
 }
 
-export const MenuContent = ({ children }: { children: React.ReactNode }) => {
+export const MenuContent = ({ children, className }: { children: React.ReactNode; className?: string }) => {
   const { open } = useMenuContext()
 
   if (!open) return null
@@ -53,8 +82,9 @@ export const MenuContent = ({ children }: { children: React.ReactNode }) => {
   return (
     <div
       className={cn(
-        'absolute mt-2 w-48 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none',
-        'z-10'
+        'absolute mt-2 w-48  bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none',
+        'z-10',
+        className
       )}
       role="menu"
       aria-orientation="vertical"
@@ -65,10 +95,14 @@ export const MenuContent = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-export const MenuItem = ({ children }: { children: React.ReactNode }) => {
+export const MenuItem = ({ children, className }: { children: React.ReactNode; className?: string }) => {
   return (
     <div
-      className={cn('block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900', 'cursor-pointer')}
+      className={cn(
+        'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900',
+        'cursor-pointer',
+        className
+      )}
       role="menuitem"
     >
       {children}

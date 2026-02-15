@@ -22,4 +22,56 @@ describe('Menu', () => {
     // Меню появляется
     expect(screen.getByText('Item 1')).toBeInTheDocument()
   })
+
+  it('closes menu on trigger click', async () => {
+    render(
+      <Menu>
+        <MenuTrigger>Open</MenuTrigger>
+        <MenuContent>
+          <MenuItem>Item 1</MenuItem>
+        </MenuContent>
+      </Menu>
+    )
+
+    expect(screen.queryByText('Item 1')).not.toBeInTheDocument()
+
+    await userEvent.click(screen.getByText('Open'))
+    await userEvent.click(screen.getByText('Open'))
+
+    expect(screen.queryByText('Item 1')).not.toBeInTheDocument()
+  })
+
+  it('closes on Esc key press', async () => {
+    render(
+      <Menu>
+        <MenuTrigger>Open</MenuTrigger>
+        <MenuContent>
+          <MenuItem>Item 1</MenuItem>
+        </MenuContent>
+      </Menu>
+    )
+
+    await userEvent.click(screen.getByText('Open'))
+    expect(screen.getByText('Item 1')).toBeInTheDocument()
+
+    await userEvent.keyboard('{Escape}')
+    expect(screen.queryByText('Item 1')).not.toBeInTheDocument()
+  })
+
+  it('closes on click outside', async () => {
+    render(
+      <Menu>
+        <MenuTrigger>Open</MenuTrigger>
+        <MenuContent>
+          <MenuItem>Item 1</MenuItem>
+        </MenuContent>
+      </Menu>
+    )
+
+    await userEvent.click(screen.getByText('Open'))
+    expect(screen.getByText('Item 1')).toBeInTheDocument()
+
+    await userEvent.click(document.body)
+    expect(screen.queryByText('Item 1')).not.toBeInTheDocument()
+  })
 })

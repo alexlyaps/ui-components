@@ -5,7 +5,7 @@ import { Button } from '@/components/button'
 function App() {
   return (
     <>
-      <Button onClick={() => alert('Button clicked!')} variant="danger" label="Check">
+      <Button onClick={() => alert('Button clicked!')} variant="danger">
         <Check />
       </Button>
       <Button onClick={() => alert('Button clicked!')} variant="danger">

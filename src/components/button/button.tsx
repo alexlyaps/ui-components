@@ -34,19 +34,17 @@ export const Button = ({
   className,
   variant = 'primary',
   size = 'medium',
-  label,
   type = 'button',
+  ref,
   ...props
 }: Props) => {
-  const ariaLabel = typeof children === 'string' ? children : label
-
   return (
     <button
       onClick={onClick}
       disabled={disabled}
       className={cn(buttonVariants({ variant, size, disabled }), className)}
-      aria-label={ariaLabel}
       type={type}
+      ref={ref}
       {...props}
     >
       {children}

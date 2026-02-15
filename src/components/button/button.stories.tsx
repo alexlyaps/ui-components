@@ -37,6 +37,5 @@ export const WithIcon: Story = {
   args: {
     variant: 'primary',
     children: <CheckIcon />,
-    label: 'Check',
   },
 }
