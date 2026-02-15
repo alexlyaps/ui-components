@@ -1,6 +1,7 @@
-import { useContext, createContext, useRef, useState, useEffect } from 'react'
+import { useContext, createContext, useRef, useState, useEffect, cloneElement } from 'react'
 import { cn } from '@/utils/cn'
 import { Button } from '../button'
+import type { MenuTriggerChildProps, MenuTriggerProps } from './menu.types'
 
 type MenuContextType = {
   open: boolean
@@ -47,18 +48,22 @@ export const Menu = ({ children }: { children: React.ReactNode }) => {
   return <MenuContext.Provider value={{ open, setOpen, triggerRef }}>{children}</MenuContext.Provider>
 }
 
-export const MenuTrigger = ({
-  children,
-  className,
-}: {
-  children: React.ReactNode | string
-  className?: string
-  asChild?: boolean
-}) => {
+export const MenuTrigger = ({ children, className, asChild = false }: MenuTriggerProps) => {
   const { open, setOpen, triggerRef } = useMenuContext()
 
   const handleClick = () => {
     setOpen((open) => !open)
+  }
+
+  if (asChild) {
+    const child = children as React.ReactElement<MenuTriggerChildProps>
+
+    // eslint-disable-next-line react-hooks/refs
+    return cloneElement(child, {
+      onClick: handleClick,
+      ref: triggerRef,
+      className: cn(child.props.className, className),
+    })
   }
 
   return (
@@ -67,7 +72,7 @@ export const MenuTrigger = ({
       aria-haspopup="menu"
       onClick={handleClick}
       ref={triggerRef}
-      className={cn('inline-flex items-center', className)}
+      className={cn('', className)}
     >
       {children}
     </Button>
@@ -97,7 +102,8 @@ export const MenuContent = ({ children, className }: { children: React.ReactNode
 
 export const MenuItem = ({ children, className }: { children: React.ReactNode; className?: string }) => {
   return (
-    <div
+    <button
+      type="button"
       className={cn(
         'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900',
         'cursor-pointer',
@@ -106,6 +112,6 @@ export const MenuItem = ({ children, className }: { children: React.ReactNode; c
       role="menuitem"
     >
       {children}
-    </div>
+    </button>
   )
 }

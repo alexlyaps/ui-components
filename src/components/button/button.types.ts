@@ -1,5 +1,5 @@
 export type ButtonProps = {
-  onClick: () => void
+  onClick?: () => void
   disabled?: boolean
   className?: string
   variant?: 'primary' | 'secondary' | 'danger'
