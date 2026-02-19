@@ -47,4 +47,14 @@ describe('Switch', () => {
     const switchElement = screen.getByRole('switch')
     expect(switchElement).toHaveFocus()
   })
+  it('updates aria-checked when checked prop changes', () => {
+    const { rerender } = render(<Switch checked={false} onChange={() => {}} />)
+
+    const switchElement = screen.getByRole('switch')
+    expect(switchElement).toHaveAttribute('aria-checked', 'false')
+
+    rerender(<Switch checked={true} onChange={() => {}} />)
+
+    expect(switchElement).toHaveAttribute('aria-checked', 'true')
+  })
 })

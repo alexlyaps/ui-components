@@ -1,6 +1,7 @@
 import type { ButtonProps as Props } from './button.types'
 import { cva } from 'class-variance-authority'
 import { cn } from '@/utils/cn'
+import { forwardRef } from 'react'
 
 const buttonVariants = cva('px-4 py-2  focus:outline-none focus:ring-2 focus:ring-offset-2', {
   variants: {
@@ -27,27 +28,24 @@ const buttonVariants = cva('px-4 py-2  focus:outline-none focus:ring-2 focus:rin
   },
 })
 
-export const Button = ({
-  children,
-  onClick,
-  disabled,
-  className,
-  variant = 'primary',
-  size = 'medium',
-  type = 'button',
-  ref,
-  ...props
-}: Props) => {
-  return (
-    <button
-      onClick={onClick}
-      disabled={disabled}
-      className={cn(buttonVariants({ variant, size, disabled }), className)}
-      type={type}
-      ref={ref}
-      {...props}
-    >
-      {children}
-    </button>
-  )
-}
+export const Button = forwardRef<HTMLButtonElement, Props>(
+  (
+    { children, onClick, disabled, className, variant = 'primary', size = 'medium', type = 'button', ...props },
+    ref
+  ) => {
+    return (
+      <button
+        onClick={onClick}
+        disabled={disabled}
+        className={cn(buttonVariants({ variant, size, disabled }), className)}
+        type={type}
+        ref={ref}
+        {...props}
+      >
+        {children}
+      </button>
+    )
+  }
+)
+
+Button.displayName = 'Button'
